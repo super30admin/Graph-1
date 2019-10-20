@@ -1,99 +1,145 @@
 
 /* Problem Statement: 
 Verified on LeetCode
-139. Word Break
-Medium
+997. Find the Town Judge
+Easy
 
-Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+In a town, there are N people labelled from 1 to N.  There is a rumor that one of these people is secretly the town judge.
 
-Note:
+If the town judge exists, then:
 
-    The same word in the dictionary may be reused multiple times in the segmentation.
-    You may assume the dictionary does not contain duplicate words.
+    The town judge trusts nobody.
+    Everybody (except for the town judge) trusts the town judge.
+    There is exactly one person that satisfies properties 1 and 2.
+
+You are given trust, an array of pairs trust[i] = [a, b] representing that the person labelled a trusts the person labelled b.
+
+If the town judge exists and can be identified, return the label of the town judge.  Otherwise, return -1.
+
+ 
 
 Example 1:
 
-Input: s = "leetcode", wordDict = ["leet", "code"]
-Output: true
-Explanation: Return true because "leetcode" can be segmented as "leet code".
+Input: N = 2, trust = [[1,2]]
+Output: 2
 
 Example 2:
 
-Input: s = "applepenapple", wordDict = ["apple", "pen"]
-Output: true
-Explanation: Return true because "applepenapple" can be segmented as "apple pen apple".
-             Note that you are allowed to reuse a dictionary word.
+Input: N = 3, trust = [[1,3],[2,3]]
+Output: 3
 
 Example 3:
 
-Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
-Output: false
+Input: N = 3, trust = [[1,3],[2,3],[3,1]]
+Output: -1
+
+Example 4:
+
+Input: N = 3, trust = [[1,2],[2,3]]
+Output: -1
+
+Example 5:
+
+Input: N = 4, trust = [[1,3],[1,4],[2,3],[2,4],[4,3]]
+Output: 3
+
+ 
+
+Note:
+
+    1 <= N <= 1000
+    trust.length <= 10000
+    trust[i] are all different
+    trust[i][0] != trust[i][1]
+    1 <= trust[i][0], trust[i][1] <= N
 
 
 
- * Best Solution : DYNAMIC PROGRAMMING, 
- * Time Complexity : O(n^2) where n is size of string 
- * Space Complexity : O(n) for dp array 
+
+ * Solution 1 : using Indegree and Outdegree concept (combined data )
+ * Time Complexity : O(n) where n is edge list length specifying x1->x2 relationship 
+ * Space Complexity : O(N) for  N = total number of person
+
+* Solution 2 : using Hashmap and Hashset
+ * Time Complexity : O(n) where n is edge list length specifying x1->x2 relationship 
+ * Space Complexity : O(N) for  N = total number of person
  */
 
- class Solution {
+class Solution {
 public:
-    /* Time Complexity :O (n^2), Space complexity : O(n)*/
-    bool wordBreak(string s, vector<string>& wordDict) {
-        bool final_ans = false;
-        int idx, idx2;
-        int slen = s.length();
-        string temp;
+    int findJudge(int N, vector<vector<int>>& trust) {
+        /* Specify length of the trust edge list size */
+        int t_size = trust.size();
+        int town_judge = -1;
+        int idx = 0, idx1 = 0;
         
-        /* Check length of string, if its zero return from here */
-        if (!slen) {
-            return final_ans;
-        }
-        /* Create dp array where dp[i] represents whether an element exists of the substring form from 0th to ith index */
-        bool dp[slen + 1];
-        
-        /* initialize dp with false */
-        for (idx = 0; idx <= slen; idx++) {
-            dp[idx] = false;
-        }
-        /* first position is true */
-        dp[0] = true;
-        
-        /* starting from each char in the string s,*/
-        for (idx = 1; idx <= slen; idx++) {    
-            /* move till the end of the string in the dp array */
-            for (idx2 = idx; idx2<=slen; idx2++) {
-                temp = s.substr(idx-1, idx2-idx+1);
-                /* If the dp before this point is true, and the new substring being formed from this is also found in dictionary, then add true at this point */
-                if (dp[idx-1] == true && find(wordDict.begin(), wordDict.end(), temp) != wordDict.end()) {
-                    dp[idx2] = true;
-                }         
+        /* If trust size is 0 there are 2 cases, if no person is there, return -1 else return N */
+        if (t_size == 0) {
+            if (N == 0)
+                return town_judge;
+            else {
+                return N;                
             }
-        }
-#if 0
 
-        /* Method 2 of iteration: here we move in the following manner
-         s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
-        *   c
-        *   ca -> ca, a
-        *   cat : match, break
-        *   cats : match, break
-        *   catsa -> atsa, tsa, sa, a
-        *   catsan -> atsan, tsan, san, an, a
-        *   catsand -> atsand, tsand, sand : true as upto cat is also true, break from here 
-        *   catsando -> ... no extra match 
-        *   catsandog -> ... dog match but at n char no match, so final answer no match ie false 
-        */
-        for (idx = 1; idx <= slen; idx++) {
-            for (idx2 = 0; idx2 < idx; idx2++) {
-                if (dp[idx2] == true && find(wordDict.begin(), wordDict.end(), s.substr(idx2,idx-idx2)) != wordDict.end()) {
-                    dp[idx] = true;
-                    break;
-                }
+        }
+        /* Store degree of each person where 0th index is not used as person starts with index 1 */
+        int degree[N+1];
+        
+        /* initialize with 0 */
+        for (idx = 0; idx < N+1; idx++) {
+            degree[idx] = 0;
+        }
+        /* For each trust pair, get the indegree and outdegree info, if indegree to a person, then add it else subtract it */
+        for (idx = 0; idx < t_size; idx++) {
+            degree[trust[idx][0]]--; /* outdegree subtract */
+            degree[trust[idx][1]]++; /* indegree add */
+        }
+        /* At the end if a person has final degree value as N - 1, that means there are only indegrees and no outdegrees */
+        for (idx = 1; idx < N+1; idx++) {
+            if (degree[idx] == N-1) {
+                return idx;
             }
         }
-#endif
-        /* if the last element is true in the dp array, that means we have reached the end of string after matching it in the dictionary */
-        return dp[slen];
+        /* If still no town judge is found, return -1 ie default vlaue of town judge */
+        return town_judge;
+    }
+
+    int findJudge_ver2(int N, vector<vector<int>>& trust) {
+        int t_size = trust.size();
+        int town_judge = -1;
+        int idx = 0, idx1 = 0;
+        
+        if (t_size == 0) {
+            if (N == 0)
+                return town_judge;
+            else {
+                return N;                
+            }
+
+        }
+        /* store potential judges with their indegree count */
+        unordered_map<int,int> potential_judges;
+        /* trust list which should be unique so taking hash set */
+        unordered_set<int> trust_unique_list;
+        
+        
+        for (idx = 0; idx < t_size; idx++) {
+            /* Count indegree for that potential judge */
+            if ((potential_judges.find(trust[idx][1])) != potential_judges.end()) {
+                potential_judges[trust[idx][1]] = potential_judges[trust[idx][1]] + 1;
+            } else {
+                potential_judges[trust[idx][1]] = 1;
+            }
+            trust_unique_list.insert(trust[idx][0]);
+        }
+
+        /* iterate over the potential judges and if not found in trust list, check if its indegree is N-1 then give that answer */
+        unordered_map<int,int>::iterator iter;      
+        for (iter = potential_judges.begin(); iter != potential_judges.end(); iter++) {
+            if (trust_unique_list.find(iter->first) == trust_unique_list.end() && (iter->second == N - 1)) {
+                return iter->first;
+            }
+        }        
+        return town_judge;
     }
 };
