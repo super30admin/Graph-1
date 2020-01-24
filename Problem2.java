@@ -77,3 +77,41 @@ class Solution {
         return false;        
     }
 }
+
+
+// DFS Solution without visited array 
+// Space Complexity O(mn)
+// Time Complexity - O(1)
+class Solution {
+     int m = 0;
+    int n = 0;
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        m = maze.length;
+        n = maze[0].length;
+        return(dfs(maze, start, destination));
+    }
+    private boolean dfs(int[][] maze, int[] start, int[] destination){
+        maze[start[0]][start[1]] = 2; 
+        int r= start[0];
+        int c = start[1];
+        // Base Case
+        if(r == destination[0] && c == destination[1])    return true;
+        if(r >= m || r < 0 || c >=n || c < 0 || maze[r][c] ==1) return false;
+        // Logic
+    
+        int[][] dirs = {{1,0},{0,1},{-1,0},{0,-1}};
+        for(int[] dir: dirs){
+            int i=r;
+            int j=c;
+            while(i < m && i>=0 && j < n && j >= 0 && (maze[i][j] ==0 || maze[i][j] ==2)){
+                i += dir[0];
+                j += dir[1];    
+            }
+            i -= dir[0];
+            j -= dir[1];
+            if(maze[i][j] !=2)
+                if(dfs(maze, new int[]{i,j}, destination)) return true;
+        }
+        return false;
+    }
+}
