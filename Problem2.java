@@ -39,3 +39,41 @@ class Solution {
         return false;        
     }
 }
+
+
+
+// BFS solution without Visited array
+// Time Complexity - O(mn)
+// Space Complexity - O(1)
+
+class Solution {
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        int m = maze.length;
+        int n = maze[0].length;
+        maze[start[0]][start[1]] = 2;
+        Queue<int[]> q = new LinkedList<>();
+        q.add(start);
+        int[][] dirs = {{0,1},{1,0},{0,-1},{-1,0}};
+        while(!q.isEmpty()){
+            int[] curr = q.poll();
+            if(curr[0] == destination[0] && curr[1] == destination[1])  return true;
+            int r = curr[0];
+            int c = curr[1];
+            for(int[] dir : dirs){
+                int i = r;
+                int j = c;
+                while(i >= 0 && i < m && j >= 0 && j < n && (maze[i][j] == 0 || maze[i][j] == 2)){ // check for value =2 so keep changing the i and j until the wall is hit or 1 is hit. since now we are replacing the visited positions with value 2 instead of keeping visited array
+                    i += dir[0];
+                    j += dir[1];    
+                }
+                i -= dir[0];
+                j -= dir[1];
+                if(maze[i][j] != 2){ // add the new position to the queue only if the value is not 2 which means the position is not visited yet
+                    q.add(new int[]{i,j});
+                    maze[i][j] = 2;
+                }    
+            }    
+        }
+        return false;        
+    }
+}
