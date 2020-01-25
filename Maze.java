@@ -1,5 +1,5 @@
 /*
-LeetCode Submitted : Can't check not having premium but seems correct
+LeetCode Submitted : YES
 Time Complexity : O(maze length * maze width)
 Space Complexity : O(maze length )
 
