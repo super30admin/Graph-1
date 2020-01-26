@@ -1,7 +1,7 @@
 /*
 LeetCode Submitted : YES
 Time Complexity : O(maze length * maze width)
-Space Complexity : O(maze length )
+Space Complexity : O(1)
 The idea is to use Queue for BFS traversal such that for each position we will traverse till we reach end of the maze. Also, check to see if we reach destination.We are not going to use visited array in this implementation and use current maze to update the location so we don't visit same location again.
 */
 import java.util.*;
