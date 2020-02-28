@@ -1,5 +1,6 @@
 //TC - O(m*n)
 //SC - O(m*n)
+//BFS
 
 class Solution {
     
@@ -39,6 +40,52 @@ class Solution {
                 }
             }
         }
+        return false;
+    }
+}
+
+//DFS
+//TC - O(n)
+//SC - O(n)
+class Solution {
+    int[][] dirs = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+    int m = 0;
+    int n = 0;
+    
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        if(maze == null || maze.length == 0) return false;
+        
+        m = maze.length;
+        n = maze[0].length;
+        
+        return helper(maze, start, destination);
+    }
+    
+    private boolean helper(int[][] maze, int[] s, int[] d)
+    {
+        //base
+        if(d[0] == s[0] && d[1] == s[1]) return true;
+        
+        //logic
+        maze[s[0]][s[1]] = 2;
+        
+        for(int[] dir : dirs)
+        {
+            int r = s[0];
+            int c = s[1];
+            
+            while(r < m && r >= 0 && c < n && c>= 0 && maze[r][c] != 1)
+            {
+                r += dir[0];
+                c += dir[1];
+            }
+            
+            r -= dir[0];
+            c -= dir[1];
+            
+            if(maze[r][c] == 0 && helper(maze, new int[]{r,c}, d)) return true;
+        }
+        
         return false;
     }
 }
