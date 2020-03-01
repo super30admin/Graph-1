@@ -1,6 +1,6 @@
 # Graph-1
 
-## Problem1 Find Judge (https://leetcode.com/problems/find-the-town-judge/)
+## Problem113 Find Judge (https://leetcode.com/problems/find-the-town-judge/)
 
 In a town, there are N people labelled from 1 to N.  There is a rumor that one of these people is secretly the town judge.
 
@@ -43,11 +43,12 @@ Example 5:
 
     Output: 3
 
-## Problem2 The Maze (https://leetcode.com/problems/the-maze/)
+## Problem114 The Maze (https://leetcode.com/problems/the-maze/)
 
 There is a ball in a maze with empty spaces and walls. The ball can go through empty spaces by rolling up, down, left or right, but it won't stop rolling until hitting a wall. When the ball stops, it could choose the next direction.
 
 Given the ball's start position, the destination and the maze, determine whether the ball could stop at the destination.
+
 
 The maze is represented by a binary 2D array. 1 means the wall and 0 means the empty space. You may assume that the borders of the maze are all walls. The start and destination coordinates are represented by row and column indexes.
 
