@@ -1,7 +1,7 @@
 // Time Complexity :O(N)
 // Space Complexity :O(N)
-// Did this code successfully run on Leetcode :No
-// Any problem you faced while coding this :Failed one testcase
+// Did this code successfully run on Leetcode :Yes
+// Any problem you faced while coding this :Worked but bad approach
 
 
 // Your code here along with comments explaining your approach
@@ -18,12 +18,12 @@ class Solution {
             }
         }
         // List<Integer> possible = new ArrayList<>();
-        int max = Integer.MIN_VALUE;
-        int result=0;
+        int max = N-1;
+        int result=-1;
         for(Map.Entry<Integer,Integer> entry : map.entrySet()){
-            if(entry.getValue()>max){
-                max = entry.getValue();
-                result = entry.getKey();
+            if(entry.getValue()==max){
+                result=entry.getKey();
+                break;
                 
             }
         }
