@@ -1,0 +1,48 @@
+// Time Complexity :O(N)
+// Space Complexity :O(N)
+// Did this code successfully run on Leetcode :Yes
+// Any problem you faced while coding this :No
+class Solution {
+    int[] dx={1,-1,0,0};
+    int[] dy={0,0,-1,1};
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        boolean[][] visited = new boolean[maze.length][maze[0].length];
+        Queue<Pair> q =  new LinkedList<>();
+        q.add(new Pair(start[0],start[1]));
+        visited[start[0]][start[1]]=true;
+        while(!q.isEmpty()){
+            Pair current = q.poll();
+            if(current.x==destination[0] && current.y==destination[1]) return true;
+            
+            for(int i=0;i<4;i++){
+                int row = current.x+dx[i];
+                int col =current.y+dy[i];
+                while(isValid(row,col,maze)&&maze[row][col]!=1){
+                    row+=dx[i];
+                    col+=dy[i];
+                }
+                row -=dx[i];
+                col-= dy[i];
+                if(!visited[row][col]){
+                visited[row][col]=true;
+                q.add(new Pair(row,col));
+            }
+            }
+            
+             
+        }
+        return false;
+        
+    }
+    private boolean isValid(int i,int j,int[][] maze){
+        return i>=0 && j>=0 && i<maze.length && j<maze[0].length;
+    }
+}
+class Pair{
+    int x;
+    int y;
+    Pair(int x,int y){
+        this.x = x;
+        this.y = y;
+    }
+}
