@@ -1,0 +1,37 @@
+Time complexity: O(mn)
+Space complexity: O(1)
+Did this code successfully submitted on leetcode: Yes
+
+class Solution {
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        
+        Queue<int[]> q = new LinkedList<>();
+        int[][] dirs={{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+        
+        q.add(start);
+        maze[start[0]][start[1]]=2;
+        while(!q.isEmpty()){
+            int[] s = q.remove();
+            
+            if (s[0] == destination[0] && s[1] == destination[1])
+                return true;
+            
+            for (int[] dir: dirs) {
+                int x = s[0] + dir[0];
+                int y = s[1] + dir[1];
+            while (x >= 0 && y >= 0 && x < maze.length && y < maze[0].length && maze[x][y] != 1){
+                     x += dir[0];
+                     y += dir[1];
+                }
+                
+                if(maze[x-dir[0]][y-dir[1]]!=2){
+                    q.add(new int[]{x-dir[0],y-dir[1]});
+                    maze[x-dir[0]][y-dir[1]]=2;
+                }
+            }
+            
+        }
+        
+        return false;
+    }
+}
