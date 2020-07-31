@@ -1,0 +1,81 @@
+// Approach 1: BFS
+// Time Complexity: O(m*n)
+// Space Complexity: O(m*n)
+
+
+class Solution {
+    public boolean hasPath(int[][] maze, int[] start, int[] destination){
+        if(maze == null || maze.length == 0) return false;
+
+        Queue<int []> q = new LinkedList<>();
+        int m = maze.length ; int n = maze[0].length;
+        q.add(start);
+
+        maze[start[0][start[1]] = 2; // marking the starting cell as visited
+
+        int[][] dirs = {{0,1}, {0,-1}, {1,0}, {-1,0}};
+
+        while(!q.isEmpty()){
+            int[] curr = q.poll();
+            if(curr[0] == destination[0] && curr[1] == destination[1]){
+                return true;
+            }
+
+            for(int[] dir: dirs){
+                int r = curr[0]; int c = curr[1];  // initial index of the ball
+                // move the ball in all 4 directions
+                while(r >= 0 && r < m && c >= 0 && c < n && maze[r][c] != 1){
+                    r += dir[0];
+                    c += dir[1];
+                }
+                // bring back the ball to the actual stop point
+                r -= dir[0]; c -= dir[1];
+                if(maze[r][c] != 2){
+                    maze[r][c] = 2;
+                    q.add(new int[]{r,c});
+                }
+            }
+        }
+
+        return false;
+
+    }
+}
+
+// Approach 2: DFS
+// Time Complexity: O(m*n)
+// Space Complexity: O(m*n)
+
+class Solution {
+    int m ; int n;
+    int[][] dirs;
+    public boolean hasPath(int[][] maze, int[] start, int[] destination){
+        if(maze == null || maze.length == 0) return false;
+        m = maze.length ; n = maze[0].length;
+        dirs = = new int[][]{{0,1}, {0,-1}, {1,0}, {-1,0}};
+        maze[start[0]start[1]] = 2;
+        return dfs(maze,start,destination);
+
+    }
+
+    private boolean dfs(int[][] maze, int[] start, int[] destination){
+        // base
+        if(start[0] == destination[0] && start[1] == destination[1]) return true;
+
+        // logic
+        for(int[] dir: dirs){
+            int r = start[0] ; int c = start[1];
+            while(r >= 0 && r < m && c >= 0 && c < n && maze[r][c] != 1){ // we haven't hit the boundaries or walls
+                r += dir[0]; c += dir[1];
+            }
+            // put r,c at stop
+            r -= dir[0]; c -= dir[1];
+            if(maze[r][c] != 2){
+                maze[r][c] = 2;
+                if(dfs(maze, new int[]{r,c}, destination)) return true;
+            }
+        }
+        return false;
+
+    }
+}
