@@ -11,7 +11,7 @@ class Solution {
 		// edge case
 		if (maze == null || maze.length == 0) return false;
 		
-		int m = maze.length; int n = maza[0].length;
+		int m = maze.length; int n = maze[0].length;
 		Queue<int[]> q = new LinkedList<>();
 		q.add(start);
 		maze[start[0]][start[1]] = 2; // mark the start visited
@@ -28,7 +28,7 @@ class Solution {
 				r -= dir[0]; c-= dir[1]; // bring back to actual stop point
 				if (maze[r][c] != 2) {
 					maze[r][c] = 2; // mark the stop node position as visited
-					q.add(int[] {r,c});	
+					q.add(new int[] {r,c});	
 				}
 			}
 		}
