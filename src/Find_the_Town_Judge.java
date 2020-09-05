@@ -28,7 +28,7 @@ class Find_the_Town_Judge {
 	}
 }
 
-/*************************************************Approach 1****************************************/
+/*************************************************Approach 2****************************************/
 //Time Complexity : O(m+n), n - Number of People, m - Number of edges
 //Space Complexity : O(n)
 //Did this code successfully run on Leetcode : Yes
