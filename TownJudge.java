@@ -1,3 +1,5 @@
+//TC: O(N)
+//SC: O(N)
 class Solution {
     public int findJudge(int N, int[][] trust) {
         int[] indegrees = new int[N];
