@@ -1,0 +1,32 @@
+// Time complexity : O(mn) : size of the maze
+// space complexity : O(mn)
+class Solution {
+    int destrow;
+    int destcol;
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        int startrow = start[0];
+        int startcol = start[1];
+        this.destrow = destination[0];
+        this.destcol = destination[1];
+      //    maze[startrow][startcol] = 2;
+        return helper(maze, startrow, startcol);  
+    }
+     int[][] dirs = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+    
+    public boolean helper(int[][] maze, int r, int c){
+         if(r == destrow && c == destcol) return true;
+       if(maze[r][c] == 2) return false; // already visited // recusrion break
+        // else visit it
+        maze[r][c] = 2;
+        
+        for(int[] dir : dirs){
+            while(r >= 0 && c >= 0 && r < maze.length && c < maze[0].length && maze[r][c] == 0 ){
+            //    maze[x][y] = 2;
+                r += dir[0];
+                c += dir[1];
+            }
+            helper(maze, r-dir[0], c-dir[1]);    
+        }
+        return false;
+    }
+}
