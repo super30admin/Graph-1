@@ -1,0 +1,26 @@
+// Town judge is the person who is trusted by all people exluding himself: indegree = N-1
+// Town judge is the person who trust no one : outdegree = 0;
+// time complexity : O(mn) : size of the trust array
+// sapce complexity: O(mn)
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+        int result = -1;
+       int[] indegree = new int[N+1];
+        ArrayList<Integer>[] graph = new ArrayList[N+1];
+        indegree[0] = 0;
+        
+        for(int i = 0; i < graph.length; i++){
+            graph[i] = new ArrayList<Integer>();
+        }
+        graph[0].add(0);
+        for(int[] tuple : trust){
+            graph[tuple[0]].add(tuple[1]);
+            indegree[tuple[1]]++;
+        }
+        for(int i = 0; i < indegree.length; i++){
+            if(indegree[i] == N-1 && graph[i].isEmpty())
+                result = i;
+        }
+        return result;  
+    }
+}
