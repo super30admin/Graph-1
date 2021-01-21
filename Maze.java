@@ -1,3 +1,11 @@
+// Time Complexity :O(N*M) 
+// Space Complexity :O(N*M) 
+// Did this code successfully run on Leetcode : tested on playground
+// Any problem you faced while coding this : No.
+
+
+// Your code here along with comments explaining your approach: from the start cordinates start dfs in 4 directions. change the value in maze
+// to 2 after stopping at that cordinate. Continue traversing until the destination; 
 // "static void main" must be defined in a public class.
 public class Main {
     static int dir[][] =  {{1,0},{0,1},{-1,0},{0,-1}};
