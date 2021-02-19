@@ -1,0 +1,46 @@
+from collections import deque
+class Solution:
+    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        # initialize the number of rows and columns of a maze
+        nrows, ncols = len(maze), len(maze[0]);
+        
+        # intialize visited matrix
+        visited = [[False]*ncols for i in range(nrows)];
+        
+        # initialize queue and add start node to the queue
+        
+        queue = deque();
+        queue.append(start);
+        visited[start[0]][start[1]] = True;
+        
+        # perform bfs until queue is empty
+        while(queue):
+            x,y = queue.popleft();
+            # return if destination is reached
+            if(x == destination[0] and y == destination[1]):
+                return True;
+            
+            for dx, dy in [[0,1], [0,-1], [1,0], [-1, 0]]:
+                newx, newy = x, y
+                # iterate until you find the boundary
+                # or the wall
+                while( 0 <= newx < nrows and 0 <= newy < ncols and maze[newx][newy] != 1):
+                    newx += dx;
+                    newy += dy
+                
+                # step back to the stop point
+                newx -= dx;
+                newy -= dy;
+                # check whether the stop point is already visited or not
+                # if not push into the queue and make it visited
+                if(not visited[newx][newy]):
+                    queue.append([newx, newy]);
+                    visited[newx][newy] = True;
+        return False;
+    
+    '''
+    time complexity = O(mn)
+    space complexity = O(mn)
+    '''
+                
+        
