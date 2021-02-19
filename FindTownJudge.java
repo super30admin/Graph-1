@@ -1,6 +1,6 @@
-// TC: O(N) , N-> no. of people
-// SC: O(N) -> O(2N) 
-// Did it run successfully on Leetcode? :Yes
+// TC: O(max(V, E)) -> V :No. of people, E -> trust.length
+// SC: O(V) : V -> No. of people
+// Did it run successfully on Leetcode? : Yes
 class Solution {
     public int findJudge(int N, int[][] trust) {
         if (trust.length < N-1)
@@ -14,7 +14,7 @@ class Solution {
             //indegree
             trustScores[relation[1]]++;
         }
-        
+        // start from 1 because people are numbered from 1 to N
         for (int i = 1; i <= N; i++)
         {
             // if indegree-outdegree == N-1, he is the town judge
