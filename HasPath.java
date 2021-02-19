@@ -12,12 +12,11 @@ class Solution {
         int n = maze[0].length;
 
         int[][] dirs = {{1,0},{0,1},{-1,0},{0,-1}};
-        boolean[][] visited = new boolean[m][n];
 
         Queue<Integer> q = new LinkedList<>();
         q.offer(start[0]);
         q.offer(start[1]);
-        visited[start[0]][start[1]] = true;
+        maze[start[0]][start[1]] = 2;
 
         while(!q.isEmpty()){
 
@@ -42,10 +41,10 @@ class Solution {
                     nextColumn += dir[1];
                 }
 
-                if(!visited[nextRow][nextColumn]){
+                if(maze[nextRow][nextColumn] != 2){
                     q.offer(nextRow);
                     q.offer(nextColumn);
-                    visited[nextRow][nextColumn] = true;
+                    maze[nextRow][nextColumn] = 2;
                 }
             }
         }
