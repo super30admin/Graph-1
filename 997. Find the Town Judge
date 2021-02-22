@@ -1,0 +1,30 @@
+class Solution:
+    def findJudge(self, N: int, trust: List[List[int]]) -> int:
+        
+        # iterate from 1 to N and initialize indegree and outdegree dictionaries
+        indegree, outdegree = {}, {}
+        for i in range(1, N+1):
+            indegree[i] = 0;
+            outdegree[i] = 0;
+        
+        # iterate through trust list
+        for u, v in trust:
+            indegree[v] += 1;
+            outdegree[u] += 1;
+        
+        # iterate through all N people
+        for i in range(1, N+1):
+            # if i has incoming edges are n-1 and outgoing edges are zero
+            # thern return i as the judge
+            if(indegree[i] == N-1 and outdegree[i] == 0):
+                return i;
+    # if no valid judge is there, return -1
+        return -1;
+    '''
+    e = len(trust)
+    time complexity = O(E)
+    space complexity = O(N)
+    '''
+        
+        
+            
