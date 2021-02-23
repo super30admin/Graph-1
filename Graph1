@@ -1,0 +1,21 @@
+/**
+* Time complexity : O(V+E)
+* Space : O(N) N is number of persons
+*/
+
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+        int[] personCounter = new int[N];
+        
+        for(int[] tr : trust){
+            personCounter[tr[0]-1]--;
+            personCounter[tr[1]-1]++;
+        }
+        
+        for(int index=0 ; index<N ;index++){
+            if(personCounter[index]==N-1) return index+1;
+        }
+        return -1;
+    }
+    
+}
