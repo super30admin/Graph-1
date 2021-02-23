@@ -3,7 +3,7 @@ class Solution:
     """
     Description: find a town judge from relations between N people
     
-    Time Complexity: O(n)
+    Time Complexity: O(V + E), V -> Vertices and E -> Edges (Graph)
     Space Complexity: O(1)
     
     Approach: Use of nd-array, 2 pass
