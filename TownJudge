@@ -1,0 +1,27 @@
+class Solution {
+    //TC-o(n)
+    //sc-o(n)
+    public int findJudge(int N, int[][] trusts) {
+        
+        //we can not validate if it is null or length 0 bcs if N=1 and 
+        //trusts [] we should return 1;
+        if(trusts.length < N-1)
+            return -1;
+        //will be adding outgoing incoming degrees from 1 to N
+        int [] freq = new int [N+1];
+        
+        //calculate degrees
+        for(int [] trust: trusts) {
+            freq[trust[1]]++;
+            freq[trust[0]]--;
+        }
+        
+        //check for if a person trusted by Everybody 
+        for(int i=1;i<freq.length;i++) {
+            System.out.print(freq[i]);
+            if(freq[i] == N-1)
+                return i;
+        }
+        return -1;
+    }
+}

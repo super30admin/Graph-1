@@ -1,0 +1,43 @@
+class Solution {
+    //TC - o(mn)
+    //SC -o(mn)
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        
+        if(maze == null || maze.length == 0)
+            return false;
+        
+        int m =maze.length, n = maze[0].length;
+        
+        Queue<int[]> que = new LinkedList<>();
+        que.add(new int[]{start[0],start[1]});
+        
+        //mark it as visited
+        maze[start[0]][start[1]]=2;
+        //all four directions where ball can go
+        int [][] dirs = {{0,1},{0,-1},{-1,0},{1,0}};
+        
+        while(!que.isEmpty()){
+            int [] cr = que.poll();
+            for(int [] dir:dirs){
+                int r = cr[0];
+                int c = cr[1];
+                //we need to keep rolling until we hit a wall
+                while(r>=0 && c>=0 && r<m && c <n && maze[r][c] != 1){
+                    r +=dir[0];
+                    c +=dir[1];
+                }
+                //we hit a wall so ball went ahead 
+                //so bring it back to stopped position
+                r = r-dir[0]; c = c-dir[1];
+                //add it if it is not visited
+                if(maze[r][c] != 2) {
+                    que.add(new int [] {r,c});
+                    maze[r][c] = 2;
+                }
+                if(r == destination[0] && c == destination[1])
+                    return true;   
+            }
+        }
+        return false;
+    }
+}
