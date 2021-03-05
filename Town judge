@@ -1,0 +1,21 @@
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+       int[] trusts = new int[N + 1];
+        int[] isTrustedBy = new int[N + 1];
+        
+        for (int[] pair : trust) {
+            trusts[pair[0]]++;
+            isTrustedBy[pair[1]]++;
+        }
+        
+        for (int i = 1; i <= N; i++) {
+            if (isTrustedBy[i] == N - 1 && trusts[i] == 0) {
+                return i;
+            }
+        }
+        
+        return -1; 
+    }
+}
+//Time Complexity: O(n+m)
+//space Complexity:O(2n)
