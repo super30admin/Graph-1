@@ -1,5 +1,5 @@
 // Time Complexity : O(m*n)
-// Space Complexity : O(1) 
+// Space Complexity : O(m+n) 
 // Did this code successfully run on Leetcode : YES
 // Any problem you faced while coding this : NO
 
@@ -22,8 +22,8 @@ public class Solution {
             
             for(int[] dir : dirs) {
                 
-                int r = curr[0]+dir[0];
-                int c = curr[1]+dir[1];
+                int r = curr[0];
+                int c = curr[1];
                 
                 while(r>=0 && c>=0 && r<m && c<n && maze[r][c]!=1) {
                     r+=dir[0];
