@@ -1,0 +1,40 @@
+class Solution {
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        if(start[0] == destination[0] && start[1] == destination[1]){
+            return true;
+        }
+        return dfs(maze,destination, start[0], start[1]);
+    }
+    private int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+    
+    private boolean dfs(int[][] maze,int[] dest, int i,int j){
+        //current i==> ith index of matrix and current j ==> jth index of matrix
+        if(maze[i][j]==2){
+            return false;
+        }
+        //when reached the destination
+        if(i==dest[0] && j==dest[1]){
+            return true;
+        }
+        //if visited mark cell as 2
+        maze[i][j]=2;
+        
+        for(int[] dir : dirs){
+            int r = i;
+            int c = j;
+            //scroll unless u reach a wall i.e 1
+            while(r>=0 && r<maze.length && c>=0 && c<maze[0].length && maze[r][c]!=1){
+                r = r+ dir[0];
+                c = c+ dir[1];
+            }
+            //when reach a wall, come 1 step back
+            r = r-dir[0];
+            c = c-dir[1];
+            //call the same again on that cell
+            if(dfs(maze,dest,r,c)){
+                return true;
+            }
+        }
+        return false;
+    }
+}

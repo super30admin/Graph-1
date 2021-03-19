@@ -1,0 +1,25 @@
+class Solution {
+    public int findJudge(int N, int[][] trust) {
+        //pseudo code:
+        // calculate indegree and outdegree for each node
+        // the node which have indegree = N-1 & outdegree == 0 is the town judge
+        
+        int in[] = new int[N+1];
+        int out[] = new int[N+1];
+        
+        for(int[] elem : trust){
+            int a = elem[0];
+            int b = elem[1];
+            
+            in[a] +=1;
+            out[b] +=1;
+        }
+        
+        for(int i=1;i<= N;i++){
+            if(in[i]==0 && out[i] == N-1){
+                return i;
+            }
+        }
+        return -1;
+    }
+}
