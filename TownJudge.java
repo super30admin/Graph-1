@@ -6,6 +6,9 @@
 
 // Your code here along with comments explaining your approach
 
+// Counting the number of in-degrees and out-degrees of each node i.e. each number of the trust array
+// return the node which has all the in-degree and 0 out-degree
+
 class Solution {
     public int findJudge(int N, int[][] trust) {
         int[] arr = new int[N+1];
