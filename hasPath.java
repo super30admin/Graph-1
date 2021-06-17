@@ -30,3 +30,6 @@ public boolean hasPath(int [][] maze, int [] start, int [] destination){
     return false;
 }
 }
+
+Time Complexity = O(mn)
+Space Complexity = O(queue)
