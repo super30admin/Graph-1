@@ -31,12 +31,44 @@ public class FindTheTownJudge {
         return -1;
     }
 
+    public int FindTheTownJudge(int n, int[][] trust) {
+
+        int[] indegree = new int[n];
+        int[] outdegree = new int[n];
+
+        for(int i=0;i<trust.length;i++) {
+            outdegree[trust[i][0]-1]--;
+            indegree[trust[i][0]-1]++;
+        }
+        for(int i=0;i<n;i++) {
+            if(indegree[i] == n-1 && outdegree[i] == 0) {
+                return i+1;
+            }
+        }
+        return -1;
+    }
+
+    public int findJudgeTwoArray(int n, int[][] trust) {
+        int[] indegree = new int[n];
+        int[] outdegree = new int[n];
+
+        for(int i=0;i<trust.length;i++) {
+            outdegree[trust[i][0]-1]++;
+            indegree[trust[i][1]-1]++;
+        }
+        for(int i=0;i<n;i++) {
+            if(indegree[i] == n-1 && outdegree[i] == 0) {
+                return i+1;
+            }
+        }
+        return -1;
+    }
     public static void main(String[] args) {
         int[][] trust = new int[][] {
             {1,2}
         };
 
-        int result = new FindTheTownJudge().findJudge(2, trust);
+        int result = new FindTheTownJudge().findJudgeTwoArray(2, trust);
         System.out.println("The result: "+result);
     }
 }
