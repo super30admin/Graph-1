@@ -1,7 +1,7 @@
 /*
-TC = O(n)
-SC = O(N)
-where n is the size of the trust vector and N is the number of peoples.   
+TC = O(V+E)
+SC = O(V)
+where V+E is the size of the trust vector and V is the number of peoples.   
 */
 class Solution {
 public:
