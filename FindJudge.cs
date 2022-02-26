@@ -1,6 +1,6 @@
 //https://leetcode.com/submissions/detail/649285912/
-//Time: O(N)
-//Space: O(1)
+//Time: O(V+E)
+//Space: O(V)
 
 public class Solution {
     public int FindJudge(int n, int[][] trust) {
