@@ -1,0 +1,17 @@
+//Time Complexity:O(n) where n is the size of the trust array.
+
+//Space Complexity:O(n)
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+        int [] indegree=new int[n];
+        for(int t[]:trust){
+            indegree[t[0]-1]--;
+            indegree[t[1]-1]++;
+        }
+        for(int i=0;i<indegree.length;i++){
+            if(indegree[i]==n-1)
+                return i+1;
+        }
+        return -1;
+    }
+}
