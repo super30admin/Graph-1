@@ -1,0 +1,16 @@
+//Time Complexity: O(E)  where E is the number of edges in the trust array
+//Space Complexity: O(N) where N is the number of people
+//passed on leetcode: yes
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+        int[] indegrees = new int[n];
+        for (int[] pep: trust) {
+            indegrees[pep[0]-1]--;
+            indegrees[pep[1]-1]++;
+        }
+        for (int i= 0; i< indegrees.length; i++) {
+            if (indegrees[i] == n-1) return i+1;
+        }
+        return -1;
+    }
+}
