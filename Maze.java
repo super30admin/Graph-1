@@ -4,7 +4,7 @@ import java.util.Queue;
 //Time Complexity : O(k*m*n) => O(m*n) since k is constant
 //Space Complexity : O(m*n)
 public class Maze {	
-	/**Approach1: BFS| Time O(m*n)| Space O(m*n)**/
+	/**Approach1: BFS| Time O(m*n)| Space O(m+n)**/
 	/*public boolean hasPath(int[][] maze, int[] start, int[] destination) {        
         int m=maze.length;
         int n= maze[0].length;
@@ -33,7 +33,7 @@ public class Maze {
         return false;
     }*/
 	
-	/**Approach2: DFS| Time O(m*n)| Space O(m*n)**/
+	/**Approach2: DFS| Time O(m*n)| Space O(m+n)**/
 	int[][] dirs;
     int m;
     int n;
