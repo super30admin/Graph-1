@@ -4,7 +4,7 @@ import java.util.Queue;
 public class Maze {
     // BFS approach
     // TC : O(m * n)
-    // SC : O(1)
+    // SC : O(m * n)
     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
         if(maze == null || maze.length == 0) return false;
 
