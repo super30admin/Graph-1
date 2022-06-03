@@ -1,5 +1,7 @@
 /*
 Problem: https://leetcode.com/problems/the-maze/
+TC: O(m * n)
+SC: O(m * n)
 */
 
 // Approach 1: BFS

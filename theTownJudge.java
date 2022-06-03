@@ -1,5 +1,6 @@
 /*
 Problem: https://leetcode.com/problems/find-the-town-judge/
+TC: O(n + trust.length)
 */
 class Solution {
     public int findJudge(int n, int[][] trust) {
