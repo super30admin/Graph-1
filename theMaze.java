@@ -1,3 +1,9 @@
+// both approches
+// Time Complexity : O(mn)
+// Space Complexity : O(mn)
+// Did this code successfully run on Leetcode : yes
+// Any problem you faced while coding this : no
+
 import java.util.*;
 
 class Main {
