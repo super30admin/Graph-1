@@ -1,5 +1,5 @@
 '''
-## Problem 997: The maze
+## Problem 997: Find the town judge.
 
 ## Author: Neha Doiphode
 ## Date:   08-22-2022
