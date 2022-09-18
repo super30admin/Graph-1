@@ -1,0 +1,14 @@
+TC: V+E
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+        int[] indegrees = new int[n];
+        for(int [] edge : trust){
+            indegrees[edge[0]-1]--; //In [1,3], 1 is trusting hence --
+            indegrees[edge[1]-1]++; //In [1,3], 3 is trusted hence ++
+        }
+        for(int i=0;i<n;i++){
+           if(indegrees[i]== n-1) return i+1; //wherever the count is n-1 means everybody trust that node and hence it can become town judge
+        }
+        return -1;
+    }
+}
