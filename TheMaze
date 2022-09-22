@@ -1,0 +1,76 @@
+class Solution {
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+      
+        Queue <Integer> qx= new LinkedList<>();
+        Queue <Integer> qy= new LinkedList<>();
+        int visited[][]= new int[maze.length][maze[0].length];
+        visited[start[0]][start[1]]=1;
+        qx.add(start[0]);
+        qy.add(start[1]);
+        
+        
+        while(!qx.isEmpty()){
+            int outx=qx.poll();
+            int outy=qy.poll();
+           // System.out.println(qx);
+           // System.out.println(qy);
+            if(outx==destination[0]&&outy==destination[1]){
+                return true;
+            }
+            // top
+            int p=outx;
+            // System.out.println(p);
+            while(p>=0 &&maze[p][outy]!=1 ){
+               
+                p--;
+            }
+            // bottom 
+            p++;
+            if(visited[p][outy]==0){
+                visited[p][outy]=1;
+                qx.add(p);
+                qy.add(outy);
+                
+            }
+            p=outx;
+        while(p<=maze.length-1&&maze[p][outy]!=1  ){
+                
+                p++;
+            }
+            p--;
+            if(visited[p][outy]==0){
+                visited[p][outy]=1;
+                qx.add(p);
+                qy.add(outy);
+                }
+            //left
+            p=outy;
+            while( p>=0 && maze[outx][p]!=1){
+                
+                p--;
+            }
+            p++;
+            if(visited[outx][p]==0){
+                visited[outx][p]=1;
+                qx.add(outx);
+                qy.add(p);
+                }
+            
+            
+            //right
+            p=outy;
+            while( p<=maze[0].length-1&&maze[outx][p]!=1){
+                
+                p++;
+            }
+            p--;
+             if(visited[outx][p]==0){
+                visited[outx][p]=1;
+                qx.add(outx);
+                qy.add(p);
+                }
+            
+        }
+     return false;
+    }
+    }
