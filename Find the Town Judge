@@ -1,0 +1,19 @@
+class Solution:
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        def calculateDegree():
+            c = [[0,0] for _ in range(n+1)]
+            for a, b in trust:
+                c[b][0] += 1
+                c[a][1] += 1
+            return c
+        if not trust and n == 1:
+            return 1
+        c = calculateDegree()
+        for i, val in enumerate(c):
+            if val[0] == n-1 and val[1] == 0:
+                return i
+        return -1
+    
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+# Successfully implemented on Leetcode
