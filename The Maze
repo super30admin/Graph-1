@@ -1,0 +1,21 @@
+class Solution:
+    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        q = collections.deque([start])
+        visited = set([(start[0], start[1])])
+        while q:
+            m, n = q.popleft()
+            if [m, n] == destination:
+                return True
+            for dm, dn in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                m1, n1 = m, n
+                while 0 <= m1 + dm < len(maze) and 0 <= n1 + dn < len(maze[0]) and maze[m1 + dm][n1 + dn] != 1:
+                    m1 += dm
+                    n1 += dn
+                if (m1, n1) not in visited:
+                    visited.add((m1, n1))
+                    q.append((m1, n1))
+        return False
+    
+# Time Complexity: O(m*n)
+# Space Complexity: O(m*n)
+# Successfully implemented on Leetcode
