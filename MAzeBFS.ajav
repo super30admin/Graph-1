@@ -1,4 +1,6 @@
 class Solution {
+    //tc- o(m*n)
+    //sc-o(m*n)
     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
         int m = maze.length;
         int n = maze[0].length;
