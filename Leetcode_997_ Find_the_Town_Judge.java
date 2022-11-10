@@ -1,4 +1,11 @@
 /*
+approach -1
+1. traverse through the trust and add entries into map<trusting, tobetrusted> = Integer, arraylist
+2. now traverse through the key set and look for key which value returns null, if so, that's the answer, if we do not get it, then answer is -1
+//tc - O(m) + O(n) - traverse through trust + hashmap
+//sc - (O(n) - n people's mapping for their trusted person
+*/
+/*/
 approach -2
 this is the graph problem
 we take an adjaceny list for the incoming and outgoing edge
