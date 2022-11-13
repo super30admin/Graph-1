@@ -77,7 +77,7 @@ public class Solution{
 //DFS
 //TC - Not exponential , for Recursive problem- like pre-order, post oreder all has DFS solution with TC of O(n) astouch each nodes. 
 //same here, we touch mostly all locations, and so we says , it's O(m*n)
-//sc - O(m*n) - recursive stack space 
+//sc - O(m*n) - recursive stack space  
 
 public class Solution{
     int i , j, m, n;
