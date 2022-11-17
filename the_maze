@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        int n = maze.size();
+        int m = maze[0].size();
+        int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}}; 
+        pair<int,int> index;
+        index.first = start[0];
+        index.second = start[1];
+        queue<pair<int,int>> q;
+        q.push(index);
+        maze[index.first][index.second] = -1;
+        /*vistied so -1*/
+        while(!q.empty()){
+                int h = q.front().first;
+                int k = q.front().second;
+                q.pop();
+            for(auto dir : dirs){
+                /*value of r and c will change after going in one direction, but dfs is for all direction so restore original value of r and c for next direction of the same index*/
+                int r =h;
+                int c =k; 
+                while(r>=0 && r<n && c < m && c>=0 && maze[r][c]!= 1){
+                    /*iterating till we dont hit the wall, thats why while instead of if condition, move again and again in same direction*/
+                     r = r + dir[0];
+                     c = c + dir[1];
+                }
+                /*we are on wall index, so where we want to be is one less dir move than the current index*/
+                int i = r-dir[0];
+                int j = c-dir[1];
+                /*if its -1, let it be, but if its zero, either its answer or it should be marked vistied and push in queue to further go ahead with it*/
+                if(maze[i][j] == 0){
+                if(destination[0] == i && destination[1] == j){
+                    return true;
+                }
+                    maze[i][j] = -1;
+                    q.push({i,j});
+                }
+                }
+            }
+    return false;    
+    }
+};
