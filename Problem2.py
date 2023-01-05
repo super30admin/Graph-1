@@ -1,5 +1,5 @@
-#TC: O(m + n)
-#SC: O(m + n)
+#TC: O(m * n)^2
+#SC: O(m * n)
 
 #Leetcode premium question
 
