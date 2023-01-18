@@ -1,8 +1,8 @@
 class Solution:
     def findJudge(self, n: int, trust: List[List[int]]) -> int:
         
-        ## T.C = O(n)
-        ## S.C = O(n)        
+        ## T.C = O(v+e)
+        ## S.C = O(v)        
 
         in_degrees = [0]*n
 
