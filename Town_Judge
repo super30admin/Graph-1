@@ -1,0 +1,25 @@
+//TimeComplexity.   O(V+E)
+//SpaceComplexity.  O(V)
+
+
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+
+        int[] indegree = new int[n+1];
+       
+
+        for(int[] num : trust){
+            
+            indegree[num[0]]--;
+            indegree[num[1]]++;
+        }
+
+        for(int i = 1; i < indegree.length; i++){
+            if(indegree[i] == n-1){
+                return i;
+            }
+        }
+        return -1;
+
+    }
+}
