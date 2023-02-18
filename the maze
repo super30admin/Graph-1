@@ -1,0 +1,92 @@
+
+// Time Complexity : O(mn)
+// Space Complexity : O(mn)
+// Any problems faced : No
+
+// BFS
+class Solution {
+    public:
+    bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+
+        if(start[0] == destination[0] && start[1] == destination[1]) return true;
+
+        vector<vector<int>> dirs = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+
+        int m = maze.size();
+        int n = maze[0].size();
+
+        queue<int> q;
+        q.push(start[0]);
+        q.push(start[1]);
+        maze[start[0]][start[1]] = 2; // marking visited
+
+        while(!q.empty()) {
+            int i = q.front();
+            q.pop();
+            int j = q.front();
+            q.pop();
+            
+            for(auto dir : dirs) {
+                while(i >= 0 && i < m && j >= 0 && j < n && maze[i][j] != 1) { // moving until we get an obstacle
+                    i += dir[0];
+                    j += dir[1];
+                }
+                i -= dir[0];  // should stop before the wall
+                j -= dir[1];
+
+                if(maze[i][j] != 2) {
+
+                    if(i == destination[0] && j == destination[1]) return true;
+
+                    q.push(i);
+                    q.push(j);
+                    maze[i][j] = 2;
+                }
+            }
+        }
+        return false;
+    }
+};
+
+
+// DFS
+class Solution {
+    public:
+    bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+
+        if(start[0] == destination[0] && start[1] == destination[1]) return true;
+
+        int m = maze.size();
+        int n = maze[0].size();
+
+        return dfs(maze, start, destination);
+    }
+
+    bool dfs(vector<vector<int>> maze, vector<int> start, vector<int> destination) {
+
+        // base condition
+        if(start[0] == destination[0] && start[1] == destination[1]) return true;
+        if(maze[start[0]][start[1]] == 2) return false;
+        maze[start[0]][start[1]] = 2;
+
+        vector<vector<int>> dirs = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+
+        for(auto dir : dirs) {
+            int i = start[0], j = start[1];
+            while(i >= 0 && i < m && j >= 0 && j < n && maze[i][j] != 1) {
+                i += dir[0];
+                j += dir[1];
+            }
+            i -= dir[0];
+            j -= dir[1];
+            
+            vector<int> s(2);
+            s[0] = i;
+            s[1] = j;
+            
+            return dfs(maze, s, destination);
+        }
+        return false;
+
+    }
+};
