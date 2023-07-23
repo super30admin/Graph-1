@@ -58,7 +58,7 @@ bool isValid(int x,int y,vector<vector<int>>& maze){
         queue<pair<int,int>> myqueue;
         myqueue.push(make_pair(start[0],start[1]));
         int dirs[4][2] = {{0,-1},{-1,0},{0,1},{1,0}};
-
+ maze[start[0]][start[1]]=2;
     while(!myqueue.empty()) {
 pair<int,int> mypair = myqueue.front();
 for(int i=0;i<4;i++){
@@ -75,15 +75,15 @@ if(x_element==destination[0] && y_element==destination[1]){
 
 if(maze[x_element][y_element]!=2){
     myqueue.push(make_pair(x_element,y_element));
+    maze[x_element][y_element]=2;
 }
 
 }
-maze[mypair.first][mypair.second]=2;
+
 myqueue.pop();
     }   
 
     return false;
     }
 };
-
 */
