@@ -1,0 +1,26 @@
+# Find the Town Judge
+
+Time Complexity: O(E + N)
+Space Complexity: O(N)
+E is the number of trust relationships, and N is the number of people in the town.
+
+
+from collections import defaultdict
+class Solution:
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        # Dictionary to store the count of people who trust each person
+        trust_count = defaultdict(int)
+        # Set to store the people who trust someone
+        trusted_by_someone = set()
+
+        # Iterate through the trust relationships
+        for a, b in trust:
+            trust_count[b] += 1  # Count people who are trusted
+            trusted_by_someone.add(a)  # Record people who trust someone
+
+        # Iterate through all the people to find the town judge
+        for i in range(1, n + 1):
+            if trust_count[i] == n - 1 and i not in trusted_by_someone:
+                return i  # Return the town judge if found
+
+        return -1  # Return -1 if no town judge is found
