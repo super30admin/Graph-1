@@ -1,0 +1,36 @@
+#The Maze
+
+Time Complexity: O(m * n)
+Space Complexity: O(m * n)
+Here, m is the number of rows and n is the number of columns in the maze.
+
+
+class Solution:
+    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        m, n = len(maze), len(maze[0])
+        visited = set()
+
+        def dfs(x, y):
+            if [x, y] == destination:
+                return True
+            
+            if (x, y) in visited:
+                return False
+            
+            visited.add((x, y))
+            
+            # Check all four directions: up, down, left, right
+            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            for dx, dy in directions:
+                newX, newY = x, y
+                # Roll until hitting a wall or going out of bounds
+                while 0 <= newX + dx < m and 0 <= newY + dy < n and maze[newX + dx][newY + dy] == 0:
+                    newX += dx
+                    newY += dy
+                # After hitting a wall or going out of bounds, perform DFS from the new position
+                if dfs(newX, newY):
+                    return True
+            
+            return False
+
+        return dfs(start[0], start[1])
