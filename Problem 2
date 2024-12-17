@@ -1,0 +1,17 @@
+class Solution:
+    def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
+        m, n, seen = len(maze), len(maze[0]), set()
+        moves = ((1, 0), (-1, 0), (0, -1), (0, 1))
+        stack = [start]
+        while stack:
+            i, j = stack.pop()
+            if [i, j] == destination:
+                return True
+            seen.add((i, j))
+            for dx, dy in moves:
+                x, y = i, j
+                while 0 <= x + dx < m and 0 <= y + dy < n and not maze[x + dx][y + dy]:
+                    x, y = x + dx, y + dy
+                if (x, y) not in seen:
+                    stack.append((x, y))
+        return False
