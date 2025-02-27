@@ -1,5 +1,5 @@
 /**
- * Time Complexity: O(E)
+ * Time Complexity: O(E), E is the number of edges (trust relationship)
  * Space Complexity: O(N)
  * Did this code successfully run on Leetcode: Yes
  * Any problem you faced while coding this: None
