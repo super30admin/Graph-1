@@ -1,7 +1,7 @@
 /**
  * Time Complexity: O(E)
- * Space Complexity: 
- * Did this code successfully run on Leetcode: Yes/No
+ * Space Complexity: O(N)
+ * Did this code successfully run on Leetcode: Yes
  * Any problem you faced while coding this: None
 
  * Approach:
