@@ -1,0 +1,115 @@
+// Time Complexity :O(m*n) //ball is moving trough all elements in worest case but in one time because once we react element and found its stop and its not destination we are marking it as visited
+// Space Complexity :O(m*n) //recursive stack space
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+
+
+// Your code here along with comments explaining your approach: DFS approach processing one dir at a time by checking wheather its a stop or not then destination or not
+// if not marking that node as visited
+//DFS
+
+// "static void main" must be defined in a public class.
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+        int[][] maze ={{0,0,1,0,0},{0,0,0,0,0},{0,0,0,1,0},{1,1,0,1,1},{0,0,0,0,0}};
+        int[] start={0,4};
+        int[] destination={4,4};
+        Maze m=new Maze();
+       boolean flag= m.hasPath(maze,start,destination);
+        System.out.println("output "+flag);
+    }
+}
+class Maze{
+     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+         int m=maze.length;
+         int n=maze[0].length;
+         int[][] dirs={{0,-1},{1,0},{0,1},{-1,0}};
+         if(start[0] == destination[0] && start[1]==destination[1]){ //checking whether we reach destination or not
+                 return true;
+             }
+         if(maze[start[0]][start[1]] == 2){ //checking if the box is already visited or not
+             return false;
+         }
+         maze[start[0]][start[1]] = 2; // marking the box as visited to avoid repeatation of calculation
+         for(int[] dir:dirs){
+             int  nr =start[0]+dir[0];
+             int  nc =start[1]+dir[1];
+             
+             while(nr>=0 && nr<m && nc>=0 && nc<n && maze[nr][nc] != 1){//O(m*n)
+                      nr +=dir[0]; //moving in same dir untill react abstacle
+                      nc +=dir[1];//moving in same dir untill react abstacle
+             }
+             //moving one step back from abstacle
+               nr-=dir[0]; 
+             nc-=dir[1];
+             int[] ne={nr,nc};
+            if(hasPath(maze,ne,destination)) return true;
+              
+         }
+         return false;
+     }
+}
+
+
+
+
+// Time Complexity :O(m*n) O(m+n) O(m*n) we are processing m*n cells in the worest case ball moves m*n cells but we are processing adding only stopping nodes if they are not visited previously so O(m+n) becomes constant
+// here if we increase O(m*n) the O(m+n) will decrese vice versa 
+// Space Complexity :O(m*n) //recursive stack space
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+
+
+// Your code here along with comments explaining your approach:BFS approach for each processing all possible directions and marking cells which are visited and not a destination to avoid repeatation
+
+
+// "static void main" must be defined in a public class.
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+        // int[][] maze ={{0,0,0,0,0},{1,1,0,0,1},{0,0,0,0,0},{0,1,0,0,1},{0,1,0,0,0}};
+        // int[] start={4,3};
+        // int[] destination={0,1};
+        //  int[][] maze ={{0,0,1,0,0},{0,0,0,0,0},{0,0,0,1,0},{1,1,0,1,1},{0,0,0,0,0}};
+        // int[] start={0,4};
+        // int[] destination={3,2};
+          int[][] maze ={{0,0,1,0,0},{0,0,0,0,0},{0,0,0,1,0},{1,1,0,1,1},{0,0,0,0,0}};
+        int[] start={0,4};
+        int[] destination={4,4};
+        Maze m=new Maze();
+       boolean flag= m.hasPath(maze,start,destination);
+        System.out.println("output "+flag);
+    }
+}
+class Maze{
+     public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+         int m=maze.length;
+         int n=maze[0].length;
+         int[][] dirs={{0,-1},{1,0},{0,1},{-1,0}};
+         Queue<int[]> qe=new LinkedList<>();
+         qe.add(new int[]{start[0],start[1]});
+         while(!qe.isEmpty()){
+             int[] point=qe.poll();
+            
+               for(int[] dir:dirs){
+             int  nr =point[0]+dir[0];
+             int  nc =point[1]+dir[1];
+             while(nr>=0 && nr<m && nc>=0 && nc<n && maze[nr][nc] != 1){
+                      nr +=dir[0];
+                      nc +=dir[1];
+             }
+                    nr-=dir[0];
+                   nc-=dir[1];
+                   if(nr == destination[0] && nc ==destination[1]){
+                       return true;
+                   }
+                   if( maze[nr][nc]!=2){
+                        maze[nr][nc]=2;
+                     qe.add(new int[]{nr,nc});
+                   }
+         }
+         }
+         return false;
+     }
+}

@@ -1,0 +1,28 @@
+// Time Complexity :O(V+E)
+// Space Complexity :O(V)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+
+
+// Your code here along with comments explaining your approach:
+
+
+
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+
+        int[] indegrees = new int[n + 1];// S.C:O(V)
+        for (int[] tr : trust) { // T.C:O(E) //processing all edges
+            indegrees[tr[1]]++; // filling indegrees array as per given edges
+            indegrees[tr[0]]--;
+        }
+
+        for (int i = 1; i < indegrees.length; i++) {// T.C:O(V)
+            if (indegrees[i] == n - 1) { // checking the edge which has n-1 trust
+                return i;
+            }
+        }
+        return -1;
+
+    }
+}
