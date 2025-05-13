@@ -1,0 +1,38 @@
+//TC: O(m*n)
+//SC: O(m*n) m and n are size of the maze row and column 
+class Solution(object):
+    def hasPath(self, maze, start, destination):
+        """
+        :type maze: List[List[int]]
+        :type start: List[int]
+        :type destination: List[int]
+        :rtype: bool
+        """
+        m, n = len(maze), len(maze[0])
+        visited = set()
+        
+        def roll(x, y, dx, dy):
+            """Simulate rolling in direction (dx, dy) until hitting a wall."""
+            while 0 <= x + dx < m and 0 <= y + dy < n and maze[x + dx][y + dy] == 0:
+                x += dx
+                y += dy
+            return x, y
+        
+        from collections import deque
+        queue = deque([(start[0], start[1])])
+        visited.add((start[0], start[1]))
+        
+        while queue:
+            x, y = queue.popleft()
+            if x == destination[0] and y == destination[1]:
+                return True
+                
+            # Try rolling in all four directions
+            for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:  # up, down, left, right
+                next_x, next_y = roll(x, y, dx, dy)
+                if (next_x, next_y) not in visited:
+                    visited.add((next_x, next_y))
+                    queue.append((next_x, next_y))
+        
+        return False
+
