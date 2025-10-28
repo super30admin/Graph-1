@@ -1,0 +1,41 @@
+// Time Complexity: O(m * n)
+// Space Complexity: O(m * n)
+
+// Start from the starting position and add it to the queue
+// Use BFS to add all position where the ball can stop and each time change value to -1 to know it was visited
+// If the destination cell is reach at any point return true, else return false
+
+class Solution {
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{start[0], start[1]});
+        maze[start[0]][start[1]] = -1;
+        int[][] dirs = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+
+        while(!q.isEmpty()) {
+            int size = q.size();
+            for(int i = 0; i < size; i++) {
+                int[] curr = q.poll();
+                for(int[] d : dirs) {
+                    int r = curr[0] + d[0];
+                    int c = curr[1] + d[1];
+                    // Move in that direction till ball hits a wall
+                    while(r >= 0 && r < maze.length && c >= 0 && c < maze[0].length && maze[r][c] != 1) {
+                        r += d[0];
+                        c += d[1];
+                    }
+                    r -= d[0];
+                    c -= d[1];
+                    // Check for destination cell
+                    if(r == destination[0] && c == destination[1])
+                        return true;
+                    if(maze[r][c] != -1) {
+                        q.add(new int[]{r, c}); 
+                        maze[r][c] = -1;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}

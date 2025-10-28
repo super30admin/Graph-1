@@ -1,0 +1,23 @@
+// Time Complexity: O(m + n), m -> no. of trust relations, n -> no. of people
+// Space Complexity: O(n)
+
+// Keep track of the number of trusts for each person in an array
+// If a person trusts someone decrement the count in array, increment when someone trusts that person
+// Return the person with n count, else return -1
+
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+        int[] arr = new int[n+1];
+        for(int i = 0; i < trust.length; i++) {
+            arr[trust[i][0]]--;
+            arr[trust[i][1]]++;
+        }
+
+        // Check for town judge
+        for(int i = 1; i < n+1; i++) {
+            if(arr[i] == n-1)
+                return i;
+        }
+        return -1;
+    }
+}
